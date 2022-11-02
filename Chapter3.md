@@ -105,7 +105,43 @@ USER = (on->busy->off->USER).
 
 ## Concurrent Sequential Process
 
-Ternubates IFF all concurrent components terminate.
+Terminates IFF all concurrent components terminate.
+
+
+## Two-Slot Buffer
+
+```FSP
+range T = 1..1
+BUFF = (in[i:T] -> out[i] -> BUFF).
+||TWOBUF = (a:BUFF || b:BUFF) / {in/a.in, a.out/b.in, out/b.out}.
+```
+
+How can we ignore the a.out action?
+
+```FSP
+// Two-slot buffer revised
+range T = 1..1
+BUFF = (in[i:T] -> out[i] -> BUFF).
+||TWOBUF = (a:BUFF || B:BUFF) / (in/a.in, a.out/b.in, out/b.out) \ {a.out}.
+```
+
+## Hiding and Interface
+
+Hiding an action: replacing that action with internal action actually
+
+Hiding: P\A hides all actions in A from Processes
+
+Interface: P@A hides all actions in ($$\alpha P-A$$) from P: shows only actions in Action
+
+A: all actions which haec a prefix in the given set.
+
+Hiding: abstracion.
+
+## internal Actions
+
+One single label tau for all internal actions
+
+tau is neber part of the alphabet of a process
 
 
 
