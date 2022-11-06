@@ -1,5 +1,7 @@
 {
     "markdownlint.config": {
-        "no-hard-tabs": false
-    }
+        "no-hard-tabs": false,
+        "MD007": {"indent": 4}
+    },
+    "editor.fontSize": 25
 }
