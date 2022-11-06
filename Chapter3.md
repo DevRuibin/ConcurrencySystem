@@ -27,7 +27,7 @@ Because we ignore time(accsumption #2), if a and b can occur at the same time, t
 
 ## Disjoint Parallel Composition
 
-```
+```FSP
 If P, Q are processes with disjoint actions 
 THEN (P || Q) is a process whose executions 
     are the interleavings of exections of P and Q
