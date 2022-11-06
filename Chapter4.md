@@ -119,11 +119,10 @@ tr(CONVERSE_ITCH) = {$\epsilon$, think, think talk, think talk scratch, think sc
 Some examples:
 
 $$
-\begin{equation}
-\bullet\qquad tr(STOP) = {\epsilon}\\
-\bullet\qquad tr(a -> E) = {\epsilon} \cup {a.\sigma \in tr(E)}\\
-\bullet\qquad tr(E_1 | E_2) = tr(E_1) \cup tr(E_2)\\
-\bullet\qquad tr(E_1 || E_2) = {interleavings of \sigma _1 and \sigma _2 synchronized over A | \sigma _1 \in tr(E_1), \sigma _2 \in tr(E_2), A = \alpha(E_1) \cap \alpha(E_2)}\\
-\end{equation}
+\begin{align*}
+tr(STOP) &= \{\epsilon\}\\
+tr(a -> E) &= \{\epsilon\} \cup \{a.\sigma \in tr(E)\}\\
+tr(E_1 | E_2) &= tr(E_1) \cup tr(E_2)\\
+tr(E_1 || E_2) &= \{interleavings \: of \: \sigma _1\: and\: \sigma _2 \:synchronized\: over\: A\: |\: \sigma _1 \in tr(E_1), \sigma _2 \in tr(E_2), A = \alpha(E_1) \cap \alpha(E_2)\}
+\end{align*}
 $$
-
