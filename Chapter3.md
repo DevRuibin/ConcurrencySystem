@@ -14,14 +14,12 @@ Actions are atomic.
 2. Time elapses "within states"
 3. To model operations that take time, use two actions.
 
-
 ## Modelling assumption
 
 1. Actions are atomic
 2. Processes execute at arbitrary speeds
     A process can take an arbitary long time before performing an action.
 3. All concurrent actions are interleaved.
-
 
 ## Interleaving VS Real parallelism
 
@@ -38,7 +36,6 @@ THEN (P || Q) is a process whose executions
 If P can do action a and then behave like P', Then (P||Q) can do action a and then behave like (P'||Q) and vice versa for Q
 
 States of (P||Q) correspond to pairs.
-
 
 ## Concurrency VS Choices
 
@@ -70,11 +67,12 @@ If P can do unshared action a and then behave like P' Then (P||Q) can do action 
 If P and Q can do shared acton a and then behave like P' and Q' respectively, Then (P||Q) can do action a and then behave like (p'||Q')
 
 In a concurrent process (P||Q), an action a is shared between P and Q IFF a belongs to both alphabets of P and Q.
+
 * actions in $$\alpha P\cap\alpha Q$$ are synchronized
 * others are interleaved.
 
-
 ## Process Alphabet
+
 The Alphabet $$\alpha$$P of a process is the set of actions in which P can engage.
 
 ### Alphabet: Primitive Processes
@@ -90,7 +88,6 @@ The Union of the alphabets of the component processes. $$\alpha(P||Q) = \alpha P
 1. Parallel Composition is commutative
 2. Paralles Compositon is associative and therefor parentheses may be dropped.
 
-
 ## The Restroom Switch
 
 ```FSP
@@ -102,11 +99,9 @@ USER = (on->busy->off->USER).
 * Two users
 * One switch. NB: the switch alone would allow a.on followed by b.off.
 
-
 ## Concurrent Sequential Process
 
 Terminates IFF all concurrent components terminate.
-
 
 ## Two-Slot Buffer
 
@@ -169,6 +164,7 @@ PROGRAM = (work -> write -> PROGRAM).
 PRINTER = (read -> print -> PRINTER | sleep -> PRINTER).
 ||SYSTEM = (PROGRAM || PRINTER) / {transfer/{write, read}} << {transfer}.
 ```
+
 ### Setting priorities
 
 P<\<A gives higher priority to actions of A in P. Whenever an action of A is enabled, other actions are disabled.(including tau).
@@ -189,4 +185,3 @@ SWITCH = (on -> off -> SWITCH). // 2 states, 2 transitions
 P has $$N_s$$ states and $$N_t$$ transitions. (a[1..k]:P): $$N_s^k$$ states and $$k.N_s^{k-1}.N_t$$ transitions.
 
 The size of the LTS grows exponentially with the number of concurrent processes. This is one of the key challenges to any analysis of concurrent systems.
-
