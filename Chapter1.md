@@ -42,26 +42,26 @@ specify the system and their properties in a precise way, with a formal definati
 
 Denote those specifications in a machine-readable language, use automated tools to analyse them.
 
-## Elements of Modelling and Analysis
+## Elements of Modeling and Analysis
 
-Modelling: a language to describe concurrent systems and their properties.
+Modeling: a language to describe concurrent systems and their properties.
 
-Semantic: a formal defination of what the model means
+Semantic: a formal definition of what the model means
 
 properties: facts that can be checked on the models.
 
-Verification: techinques and tools to mechianically check the properties.
+Verification: techniques and tools to mechanically check the properties.
 
 ## FSP
 
-It is a modelling language not a programming language.
+It is a modeling language not a programming language.
 
 - abstracts away from data details, resources, user interactions...
 - Focuses on the order in which actions take place.
 
-## Semantics: labelled transition system
+## Semantics: labeled transition system
 
-Finate state mechines with labels on transitions.
+Finite state machines with labels on transitions.
 
 - That is graphs
 - No data, no variables, only lebels
