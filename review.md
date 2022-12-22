@@ -2,6 +2,65 @@
 
 # Review
 
+## Appendix A
+
+### A.1 Processes
+
+A process is defined by one or more local processes separated by commas. The definition is terminated by a full stop. STOP and ERROR are primitive local processes.
+
+#### Example
+
+```FSP
+Process = (a -> Local),
+Local = (b -> STOP).
+```
+
+| operator             | explanation                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| Action Prefix ->     | If x is an action and P a process then (x->P) describes a process that initially engaged in the action X and then behaves exactly as described by P. |
+| Choice \|            | If x and y are actions then (x->P\|y->Q) describes a process which initially engaged in either of the actions x or y. After the first action has occurred, the subsequent behavior is described by P if the first action was x and Q if the first action was y. |
+| Guarded Action       | The choice (when B x->P\|y->Q) means that when the guard B is true then the actions x and y are both eligible to be chosen, otherwise if B is false then the action x and Q cannot be chosen. |
+| Alphabet Extension + | The alphabet of a process is the set of actions in which it can engage. P + S extends the alphabet of the process P with the actions in the set S. |
+
+### A.2 Composite Processes
+
+A composite process is the parallel composition of one or more processes. The definition of a composite process is preceded by ||.
+
+#### Example
+
+```FSP
+||Composite = (P || Q)
+```
+
+| operator               | explanation                                                  |
+| ---------------------- | ------------------------------------------------------------ |
+| Parallel \|\|          | If P and Q are processes then (P\|\|Q) represents the concurrent execution of P and Q |
+| Replicator **forall**  | **forall**[i:1..N] P(i) is the parallel composition (P(1) \|\|...\|\|p(N)). |
+| Process Labeling **:** | a:P prefixes each label in the alphabet of P with a.         |
+| Process Sharing **::** | $\{a_1, ..., a_x\}::P$ replaces every label n in the alphabet of P with the labels $a_1.n, ..., a_x.n$. Further, every transition (n->Q) in the definition of P is replaced with transitions ($\{a_1.n, ..., a_x.n\}\rightarrow Q$) |
+| Priority High **<<**   | \|\|C=(p\|\|Q)<<{a1, ..., an} specifies a composition in which the actions a1, ..., an have higher priority than any other action in the alphabet of P\|\|Q including the silent action tau. In any choice in this system which has one or more of of the actions a1,...an labeling a transition, the  transitions labeled with lower priority actions are discarded. |
+| Priority Low >>        | \|\|C=(P\|\|Q)>>{a1, ..., an} specifies a composition in which the actions a1, ..., an have lower priority than any other action in the alphabet of P\|\|Q including the silent action tau. In any choice in this system which has one or more transitions not labeled by a1, ...m an, the transitions labeled by a1, ..., an are discarded. |
+
+### A.3 Common opearators
+
+The operator in below table may be used in the definition of both processes and composite processes.
+
+| operator                 | explanation                                                  |
+| ------------------------ | ------------------------------------------------------------ |
+| Conditional if then else | The process if B then P else Q behaves as the process P if the condition B is true; otherwise it behaves as Q. If the else Q is omitted and B is false, then the process behaves as STOP |
+| Re-labeling /            | Re-labeling is applied to a process to change the names of action labels. The general form of re-labeling is: $/\{newlabel_1/oldlable_1, ...newlable_n/oldlabel_n\}$ |
+| Hiding \                 | When applied to a process P, the hiding operator $\{a_1, ..., a_x\}$ removes the action  names $a_1, ..., ax$ from the alphabet of P and makes these concealed actions *silent*. These silent actions are labeled **tau**. Silent actions in different processes are not shared. |
+| Interface @              | When applied to a process P, the interface operator $@\{a_1, ..., a_x\}$ hides all actions in the alphabet of P not labeled in the set $a_1, ..., a_X$. |
+
+### A.4 Properties
+
+| Operator              | explanation                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| Safety **Property**   | A safety **Property** P defines a deterministic process that asserts that any trace including actions in the alphabet of P is accepted by P. |
+| Progress **progress** | **progress **P = $\{a_1, a_2, a_n\}$ defines a process property P which asserts that in an infinite execution of a target system, at least one of the actions $a_1, a_2, ..., a_n$ will be executed infinitely often. |
+
+
+
 ## Chapter 1
 
 1. What is Concurrent computer system?
@@ -172,3 +231,15 @@
     
 
 ​	P has $$N_s$$ states and $$N_t$$ transitions. (a[1..k]:P): $$N_s^k$$ states and $$k.N_s^{k-1}.N_t$$ transitions.
+
+
+
+## Chapter 4
+
+1. formal semantics
+   1. EXP: a class of FSP programs
+   2. DOM: A semantic domain. To represent the meaning of FSP programs
+   3. sem: A semantic map gives a semantics to every programs
+   4. one or more semantic relations. It is defined over Dom
+2. Trace: A trace is a finite sequence of observable actions.
+3.   
