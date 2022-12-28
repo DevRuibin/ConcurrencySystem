@@ -80,5 +80,15 @@ SCANNING[x:T] = ( reset -> BAND[108]
                 | lock[y:BOTTOM..x] -> BAND[y]),
 ENDBAND = (reset -> BAND[108]
          | off -> OFF).
+         
+/////////////////////////////////////////////////////////
+const Bottom = 88
+const Top = 108
+
+RADIO = OFF,
+OFF = (on->BAND[Top]),
+BAND[i:Bottom..Top] = (reset->BAND[Top]|scan->SCAN[i]|off->OFF),
+SCAN[x:Bottom..Top] = (lock[i:Bottom..x]->BAND[i]|end->ENDBOTTOM|off->OFF|reset->BAND[Top]),
+ENDBOTTOM = (off->OFF|reset->BAND[Top]).
 ```
 
