@@ -18,6 +18,11 @@
      CLIENT = ( call -> (wait -> continue -> CLIENT | timeout ->CLIENT) ).
      SERVER = ( request -> (service -> reply -> SERVER | failure -> SERVER)).
      || CLIENT_SERVER = ( CLIENT || SERVER ) / { call / request , reply / wait }.
+     
+     ///////////////////////////////////////
+     CLIENT = ( call -> (wait -> continue -> CLIENT | timeout -> CLIENT) ).
+     SERVER = ( request ->( service -> reply -> SERVER |failure -> SERVER)).
+     ||CLIENT_SERVER = ( CLIENT || SERVER ) / { call / request , reply / wait }.
      ```
 
      
@@ -62,6 +67,24 @@
    USER = (get[Garbage] -> USER).
    
    ||SYSTEM(Capacity=Capacity) = (DISPATCHER || PAPER_BIN(Capacity)||OTHER_BIN(Capacity) || USER).
+   
+   ////////////////////////////////////////////////////////////////////////////////////////
+   
+   set Garbage = {paper, other}
+   const Capacity = 5
+   
+   DISPATCHER = (get[g:Garbage] -> (throw[g] -> DISPATCHER | empty -> throw[g]->DISPATCHER)).
+   
+   BIN(Kind='paper, Capacity=Capacity) = BIN[0], 
+   BIN[i:0..Capacity] = (when(i<Capacity) throw[Kind]-> BIN[i+1] | empty->BIN[0]).
+   
+   ||PAPER_BIN = BIN('paper, Capacity).
+   ||OTHER_BIN = BIN('other, Capacity).
+   
+   USER = (get[g:Garbage] -> USER).
+   
+   ||SYSTEM = (PAPER_BIN || OTHER_BIN || USER || DISPATCHER).
+   
    ```
-
+   
    

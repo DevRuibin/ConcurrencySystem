@@ -10,6 +10,9 @@ For each of the following processes, give the Finite State Process (FSP) descrip
 
 1. ```FSP
    GAME = ({one, two} -> win -> GAME | three -> lose -> GAME).
+   //////////////////////////////////
+   set R = {one, two}
+   GAME = (R -> win -> GAME | three -> lose -> GAME).
    ```
 
 2. ```FSP
@@ -30,7 +33,7 @@ Give the Finite State Process (FSP) description of the following process. The pr
 ```FSP
 const K = 3
 range T = 0..2
-ADDER(K=K) = (in[i:T] -> out[i + K] -> ADDER).
+ADDER = (in[i:T] -> out[i + K] -> ADDER).
 ```
 
 # 3 Modeling
@@ -49,6 +52,11 @@ Model also a parametrized version that produces values from 0 to the parameter K
 const N = 2
 BITSTABLE(N=N) = TRIGGER[0],
 TRIGGER[x:0..N] = (trigger -> o[x] -> TRIGGER[(x+1) % (N+1)]).
+
+/////////////////////////////////////////////////////////////////////////
+const N = 6
+BITSTABLE = TRIGGER[0],
+TRIGGER[x:0..N] = (when(x<N) trigger-> o[x] -> TRIGGER[x+1] | when(x==N) trigger->o[x] -> TRIGGER[0]).
 ```
 
 ## 3.2
@@ -59,6 +67,14 @@ A variable stores values in the range 0..N and supports the actions read and wri
 const N = 2
 VARIABLE(N=N) = VARIABLE[0],
 VARIABLE[x:0..N] = (write[y:0..N] -> VARIABLE[y] | read[x] -> VARIABLE[x]).
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+const N = 2
+range R = 0..N
+
+VARIABLE = WRITE[N],
+WRITE[i:R] = (read[x:R] -> WRITE[i] | when(i>0) write[i] -> WRITE[i-1] | when(i==0) write[i] -> WRITE[N]).
 ```
 
 ## 3.3
