@@ -86,5 +86,25 @@
    ||SYSTEM = (PAPER_BIN || OTHER_BIN || USER || DISPATCHER).
    
    ```
+   3. A drinks dispensing machine charges 15p for a can of Sugarola. The machine accepts coins with denominations 5p, 10p and 20p and gives change. Model the machine as an FSP process, DRINKS.
    
+   ```FSP
+   DRINKS = CREDIT[0],
+   CREDIT[0] = (in.coin[5] -> CREDIT[5]
+   |in.coin[10] -> CREDIT[10]
+   |in.coin[20] -> CHANGE[5]),
+
+    CREDIT[5] = (in.coin[5] -> CREDIT[10]
+    |in.coin[10] -> CHANGE[0]
+    |in.coin[20] -> CHANGE[10]),
+
+    CREDIT[10]= (in.coin[5] -> CHANGE[0]
+    |in.coin[10] -> CHANGE[5]
+    |in.coin[20] -> CHANGE[15]),
+
+    CHANGE[0] = (can -> DRINKS),
+    CHANGE[5] = (can -> out.coin[5] -> DRINKS),
+    CHANGE[10] = (can -> out.coin[10] -> DRINKS),
+    CHANGE[15] = (can -> out.coin[10] -> out.coin[5] -> DRINKS).
+    ```
    
